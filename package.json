@@ -24,7 +24,7 @@
     "test": "npm run stylelint:fix && npm run lint && npm run format",
     "prepare": "husky install",
     "commit": "npm run test && cz",
-    "storybook": "BROWSER='Google Chrome' storybook dev -p 6006",
+    "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
   "config": {
