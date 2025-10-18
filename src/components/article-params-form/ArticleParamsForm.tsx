@@ -2,6 +2,8 @@ import { useState, useEffect, FormEvent } from 'react';
 import { RadioGroup } from 'src/ui/radio-group';
 import { Select } from 'src/ui/select';
 import { Button } from 'src/ui/button';
+import { Text } from 'src/ui/text';
+import { Separator } from 'src/ui/separator';
 import {
 	fontFamilyOptions,
 	fontSizeOptions,
@@ -13,82 +15,96 @@ import {
 } from 'src/constants/articleProps';
 
 import styles from './ArticleParamsForm.module.scss';
+import clsx from 'clsx';
 
 type Props = {
 	initial: ArticleStateType;
 	onApply: (next: ArticleStateType) => void;
-	onCancel: () => void;
+	onResetToInitial: () => void;
+	isOpen: boolean;
 };
 
-export const ArticleParamsForm = ({ initial, onApply, onCancel }: Props) => {
+export const ArticleParamsForm = ({
+	initial,
+	onApply,
+	onResetToInitial,
+	isOpen,
+}: Props) => {
 	const [draft, setDraft] = useState<ArticleStateType>(initial);
 	useEffect(() => setDraft(initial), [initial]);
 
-	const submit = (e: FormEvent) => { e.preventDefault(); onApply(draft); };
+	const submit = (e: FormEvent) => {
+		e.preventDefault();
+		onApply(draft);
+	};
 	const reset = () => {
 		setDraft(initial);
-		onApply(initial);
+		onResetToInitial();
 	};
 
 	return (
-		<aside className={styles.container} onClick={(e) => e.stopPropagation()}>
+		<aside
+			className={clsx(styles.container, { [styles.container_open]: isOpen })}
+			onClick={(e) => e.stopPropagation()}>
 			<form className={styles.form} onSubmit={submit} onReset={reset}>
-				{/* 1) Шрифт (RadioGroup): selected = OptionType, onChange -> OptionType */}
-				<RadioGroup
-					name="fontFamily"
-					title="Семейство шрифта"
+				<Text as='h2'>Задайте параметры</Text>
+				{/* 1) Шрифт (Select) (RadioGroup) */}
+				<Select
+					title='Шрифт'
 					options={fontFamilyOptions}
 					selected={draft.fontFamilyOption}
 					onChange={(opt: OptionType) =>
-						setDraft(d => ({ ...d, fontFamilyOption: opt }))
+						setDraft((d) => ({ ...d, fontFamilyOption: opt }))
 					}
 				/>
 
-				{/* 2) Размер шрифта (Select) */}
-				<Select
-					title="Размер шрифта"
+				{/* 2) Размер шрифта (RadioGroup) */}
+				<RadioGroup
+					name='fontSize'
+					title='Размер шрифта'
 					options={fontSizeOptions}
 					selected={draft.fontSizeOption}
-					placeholder="Выберите размер"
 					onChange={(opt: OptionType) =>
-						setDraft(d => ({ ...d, fontSizeOption: opt }))
+						setDraft((d) => ({ ...d, fontSizeOption: opt }))
 					}
 				/>
 
-				{/* 3) Цвет текста (Select) */}
+				{/* 3) Цвет шрифта (Select) */}
 				<Select
-					title="Цвет текста"
+					title='Цвет шрифта'
 					options={fontColors}
 					selected={draft.fontColor}
 					onChange={(opt: OptionType) =>
-						setDraft(d => ({ ...d, fontColor: opt }))
+						setDraft((d) => ({ ...d, fontColor: opt }))
 					}
 				/>
+
+				<Separator />
 
 				{/* 4) Цвет фона (Select) */}
 				<Select
-					title="Цвет фона"
+					title='Цвет фона'
 					options={backgroundColors}
 					selected={draft.backgroundColor}
 					onChange={(opt: OptionType) =>
-						setDraft(d => ({ ...d, backgroundColor: opt }))
+						setDraft((d) => ({ ...d, backgroundColor: opt }))
 					}
 				/>
 
-				{/* 5) Ширина контейнера (Select) */}
+				{/* 5) Ширина контента (Select) */}
 				<Select
-					title="Ширина контейнера"
+					title='Ширина контента'
 					options={contentWidthArr}
 					selected={draft.contentWidth}
 					onChange={(opt: OptionType) =>
-						setDraft(d => ({ ...d, contentWidth: opt }))
+						setDraft((d) => ({ ...d, contentWidth: opt }))
 					}
 				/>
 
 				{/* RadioGroup / Select */}
 				<div className={styles.bottomContainer}>
-					<Button title="Сбросить" htmlType="reset" type="clear" />
-					<Button title="Применить" htmlType="submit" type="apply" />
+					<Button title='Сбросить' htmlType='reset' type='clear' />
+					<Button title='Применить' htmlType='submit' type='apply' />
 				</div>
 			</form>
 		</aside>

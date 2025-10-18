@@ -1,5 +1,5 @@
 import { createRoot } from 'react-dom/client';
-import { StrictMode, useState, CSSProperties } from 'react';
+import { StrictMode, useState, useRef, CSSProperties } from 'react';
 import clsx from 'clsx';
 
 import { Article } from './components/article/Article';
@@ -16,30 +16,41 @@ const root = createRoot(domNode);
 const App = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [applied, setApplied] = useState(defaultArticleState);
+	const initialRef = useRef(defaultArticleState);
 
 	return (
 		<main
 			className={clsx(styles.main)}
+			onClick={() => isOpen && setIsOpen(false)} // закрытие по клику вне панели
 			style={
 				{
-					'--font-family': defaultArticleState.fontFamilyOption.value,
-					'--font-size': defaultArticleState.fontSizeOption.value,
-					'--font-color': defaultArticleState.fontColor.value,
-					'--container-width': defaultArticleState.contentWidth.value,
-					'--bg-color': defaultArticleState.backgroundColor.value,
+					'--font-family': applied.fontFamilyOption.value,
+					'--font-size': applied.fontSizeOption.value,
+					'--font-color': applied.fontColor.value,
+					'--container-width': applied.contentWidth.value,
+					'--bg-color': applied.backgroundColor.value,
 				} as CSSProperties
 			}>
-
 			{/* кнопка для открытия панели */}
 			<ArrowButton isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} />
 
 			{/* форма с настройками статьи, появляется при нажатии на кнопку */}
 			{isOpen && (
 				<ArticleParamsForm
+					isOpen={isOpen}
 					initial={applied}
-					onApply={(next) => { setApplied(next); setIsOpen(false); }}
-					onCancel={() => setIsOpen(false)}
-				/>)}
+					onApply={(next) => {
+						setApplied(next);
+						setIsOpen(false);
+					}}
+					onResetToInitial={() => {
+						setApplied(initialRef.current);
+						setIsOpen(false);
+					}}
+				/>
+			)}
+
+			{/* сама статья */}
 			<Article />
 		</main>
 	);
