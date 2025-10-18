@@ -31,10 +31,10 @@ const App = () => {
 					'--bg-color': applied.backgroundColor.value,
 				} as CSSProperties
 			}>
-			{/* кнопка для открытия панели */}
+			{/* кнопка для открытия сайдбара */}
 			<ArrowButton isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} />
 
-			{/* форма с настройками статьи, появляется при нажатии на кнопку */}
+			{/* форма с настройками статьи */}
 			{isOpen && (
 				<ArticleParamsForm
 					isOpen={isOpen}
@@ -50,7 +50,7 @@ const App = () => {
 				/>
 			)}
 
-			{/* сама статья */}
+			{/* статья */}
 			<Article />
 		</main>
 	);

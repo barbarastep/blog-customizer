@@ -7,6 +7,11 @@
 	letter-spacing: 0;
 }
 
+.title {
+	@include typography(31, 800, 'Open Sans');
+	text-transform: uppercase;
+}
+
 .text {
 	@include typography(18, 400, 'Open Sans');
 }

@@ -47,8 +47,13 @@ export const ArticleParamsForm = ({
 			className={clsx(styles.container, { [styles.container_open]: isOpen })}
 			onClick={(e) => e.stopPropagation()}>
 			<form className={styles.form} onSubmit={submit} onReset={reset}>
-				<Text as='h2'>Задайте параметры</Text>
-				{/* 1) Шрифт (Select) (RadioGroup) */}
+				{/* Заголовок */}
+				<div>
+					<Text size={31} weight={800} uppercase>
+						Задайте параметры
+					</Text>
+				</div>
+				{/* 1) Шрифт (Select) */}
 				<Select
 					title='Шрифт'
 					options={fontFamilyOptions}
@@ -79,6 +84,7 @@ export const ArticleParamsForm = ({
 					}
 				/>
 
+				{/* Разделитель */}
 				<Separator />
 
 				{/* 4) Цвет фона (Select) */}
