@@ -61,82 +61,79 @@ export const ArticleParamsForm = ({
 	return (
 		<>
 			<ArrowButton isOpen={isOpen} onClick={() => setIsOpen((o) => !o)} />
-			{isOpen && (
-				<aside
-					ref={panelRef}
-					className={clsx(styles.container, {
-						[styles.container_open]: isOpen,
-					})}
-					onClick={(e) => e.stopPropagation()}>
-					<form className={styles.form} onSubmit={submit} onReset={reset}>
-						{/* Заголовок */}
-						<div>
-							<Text size={31} weight={800} uppercase>
-								Задайте параметры
-							</Text>
-						</div>
-						{/* 1) Шрифт (Select) */}
-						<Select
-							title='Шрифт'
-							options={fontFamilyOptions}
-							selected={draft.fontFamilyOption}
-							onChange={(opt: OptionType) =>
-								setDraft((d) => ({ ...d, fontFamilyOption: opt }))
-							}
-						/>
+			<aside
+				ref={panelRef}
+				className={clsx(styles.container, { [styles.container_open]: isOpen })}
+				aria-hidden={!isOpen}
+				onClick={(e) => e.stopPropagation()}>
+				<form className={styles.form} onSubmit={submit} onReset={reset}>
+					{/* Заголовок */}
+					<div>
+						<Text size={31} weight={800} uppercase>
+							Задайте параметры
+						</Text>
+					</div>
+					{/* 1) Шрифт (Select) */}
+					<Select
+						title='Шрифт'
+						options={fontFamilyOptions}
+						selected={draft.fontFamilyOption}
+						onChange={(opt: OptionType) =>
+							setDraft((d) => ({ ...d, fontFamilyOption: opt }))
+						}
+					/>
 
-						{/* 2) Размер шрифта (RadioGroup) */}
-						<RadioGroup
-							name='fontSize'
-							title='Размер шрифта'
-							options={fontSizeOptions}
-							selected={draft.fontSizeOption}
-							onChange={(opt: OptionType) =>
-								setDraft((d) => ({ ...d, fontSizeOption: opt }))
-							}
-						/>
+					{/* 2) Размер шрифта (RadioGroup) */}
+					<RadioGroup
+						name='fontSize'
+						title='Размер шрифта'
+						options={fontSizeOptions}
+						selected={draft.fontSizeOption}
+						onChange={(opt: OptionType) =>
+							setDraft((d) => ({ ...d, fontSizeOption: opt }))
+						}
+					/>
 
-						{/* 3) Цвет шрифта (Select) */}
-						<Select
-							title='Цвет шрифта'
-							options={fontColors}
-							selected={draft.fontColor}
-							onChange={(opt: OptionType) =>
-								setDraft((d) => ({ ...d, fontColor: opt }))
-							}
-						/>
+					{/* 3) Цвет шрифта (Select) */}
+					<Select
+						title='Цвет шрифта'
+						options={fontColors}
+						selected={draft.fontColor}
+						onChange={(opt: OptionType) =>
+							setDraft((d) => ({ ...d, fontColor: opt }))
+						}
+					/>
 
-						{/* Разделитель */}
-						<Separator />
+					{/* Разделитель */}
+					<Separator />
 
-						{/* 4) Цвет фона (Select) */}
-						<Select
-							title='Цвет фона'
-							options={backgroundColors}
-							selected={draft.backgroundColor}
-							onChange={(opt: OptionType) =>
-								setDraft((d) => ({ ...d, backgroundColor: opt }))
-							}
-						/>
+					{/* 4) Цвет фона (Select) */}
+					<Select
+						title='Цвет фона'
+						options={backgroundColors}
+						selected={draft.backgroundColor}
+						onChange={(opt: OptionType) =>
+							setDraft((d) => ({ ...d, backgroundColor: opt }))
+						}
+					/>
 
-						{/* 5) Ширина контента (Select) */}
-						<Select
-							title='Ширина контента'
-							options={contentWidthArr}
-							selected={draft.contentWidth}
-							onChange={(opt: OptionType) =>
-								setDraft((d) => ({ ...d, contentWidth: opt }))
-							}
-						/>
+					{/* 5) Ширина контента (Select) */}
+					<Select
+						title='Ширина контента'
+						options={contentWidthArr}
+						selected={draft.contentWidth}
+						onChange={(opt: OptionType) =>
+							setDraft((d) => ({ ...d, contentWidth: opt }))
+						}
+					/>
 
-						{/* Кнопки */}
-						<div className={styles.bottomContainer}>
-							<Button title='Сбросить' htmlType='reset' type='clear' />
-							<Button title='Применить' htmlType='submit' type='apply' />
-						</div>
-					</form>
-				</aside>
-			)}
+					{/* Кнопки */}
+					<div className={styles.bottomContainer}>
+						<Button title='Сбросить' htmlType='reset' type='clear' />
+						<Button title='Применить' htmlType='submit' type='apply' />
+					</div>
+				</form>
+			</aside>
 		</>
 	);
 };
