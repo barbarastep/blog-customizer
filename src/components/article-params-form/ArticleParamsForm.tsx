@@ -53,7 +53,8 @@ export const ArticleParamsForm = ({
 		onApply(draft);
 	};
 	const reset = () => {
-		setDraft(initial);
+		setDraft(defaultArticleState);
+		onApply(defaultArticleState);
 		onResetToInitial();
 	};
 
