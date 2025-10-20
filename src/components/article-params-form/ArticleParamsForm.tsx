@@ -22,14 +22,9 @@ import clsx from 'clsx';
 type Props = {
 	initial: ArticleStateType;
 	onApply: (next: ArticleStateType) => void;
-	onResetToInitial: () => void;
 };
 
-export const ArticleParamsForm = ({
-	initial,
-	onApply,
-	onResetToInitial,
-}: Props) => {
+export const ArticleParamsForm = ({ initial, onApply }: Props) => {
 	const [draft, setDraft] = useState<ArticleStateType>(defaultArticleState);
 	useEffect(() => setDraft(initial ?? defaultArticleState), [initial]);
 
@@ -55,7 +50,6 @@ export const ArticleParamsForm = ({
 	const reset = () => {
 		setDraft(defaultArticleState);
 		onApply(defaultArticleState);
-		onResetToInitial();
 	};
 
 	return (

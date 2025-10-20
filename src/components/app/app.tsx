@@ -23,15 +23,7 @@ export const App = () => {
 				} as CSSProperties
 			}>
 			{/* форма настроек статьи */}
-			<ArticleParamsForm
-				initial={applied}
-				onApply={(next) => {
-					setApplied(next);
-				}}
-				onResetToInitial={() => {
-					setApplied(defaultArticleState);
-				}}
-			/>
+			<ArticleParamsForm initial={applied} onApply={setApplied} />
 
 			{/* статья */}
 			<Article />
